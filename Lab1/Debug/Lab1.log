@@ -1,0 +1,6 @@
+﻿  Fraction.cpp
+C:\Users\Яна\Desktop\Слава\Работа\Вячеслав Акиев\newLabs\Lab1\Fraction.cpp(27,16): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+  Lab1.cpp
+  Создание кода...
+C:\Users\Яна\Desktop\Слава\Работа\Вячеслав Акиев\newLabs\Lab1\Fraction.cpp(31): warning C4715: Fraction::Ipart: значение возвращается не при всех путях выполнения
+  Lab1.vcxproj -> C:\Users\Яна\Desktop\Слава\Работа\Вячеслав Акиев\newLabs\Debug\Lab1.exe

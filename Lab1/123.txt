@@ -1,0 +1,70 @@
+#include <iostream>
+#include "Fraction.h"
+
+using namespace std;
+
+Fraction make_fraction(double a, int b) {
+    Fraction t;
+    t.Init(a, b);
+    return t;
+}
+
+
+int main()
+{
+    Fraction A;
+    Fraction B;
+
+    A.Init(3.0, 2);
+    B.Read();
+
+    A.Show();
+    B.Show();
+
+    cout << A.Ipart() << endl;
+    cout << B.Ipart() << endl;
+
+    Fraction* X = new Fraction;
+
+    X->Init(2.0, 5);
+    X->Show();
+    cout << X->Ipart() << endl;
+
+    Fraction mas[3];
+
+    for (int i = 0; i < 3; i++) {
+        mas[i].Read();
+    }
+
+    for (int i = 0; i < 3; i++) {
+        mas[i].Show();
+    }
+
+    for (int i = 0; i < 3; i++) {
+        cout << mas[i].Ipart() << endl;
+    }
+
+    Fraction* p_mas = new Fraction[3];
+
+    for (int i = 0; i < 3; i++) {
+        p_mas[i].Read();
+    }
+
+    for (int i = 0; i < 3; i++) {
+        p_mas[i].Show();
+    }
+
+    for (int i = 0; i < 3; i++) {
+        cout << p_mas[i].Ipart() << endl;
+    }
+
+
+    double y; int z;
+    cout << "first = "; cin >> y;
+    cout << "second = "; cin >> z;
+
+    Fraction F = make_fraction(y, z);
+    F.Show();
+
+    return 0;
+}

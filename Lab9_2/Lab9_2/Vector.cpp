@@ -1,0 +1,125 @@
+#include "Vector.h"
+#include "error.h"
+
+Vector::Vector(int s)
+{
+	//если текущий размер больше максимального, то генерируется исключение
+	if (s > MAX_SIZE) 
+		throw error("ERROR!!!Vector length can't be more than MAXSIZE");
+	size = s;
+	beg = new int[s];
+	for (int i = 0; i < size; i++)
+		beg[i] = 0;
+}
+
+Vector::Vector(const Vector &v)
+{
+	size = v.size;
+	beg = new int[size];
+	for (int i = 0; i < size; i++)
+		beg[i] = v.beg[i];
+}
+
+Vector::~Vector()
+{
+	if (beg != 0) delete[]beg;
+}
+
+Vector::Vector(int s, int *mas)
+{
+	//если текущий размер больше максимального, то генерируется исключение
+	if (s > MAX_SIZE) 
+		throw error("ERROR!!!Vector length can't be more than MAXSIZE");
+	size = s;
+	beg = new int[size];
+	for (int i = 0; i < size; i++)
+		beg[i] = mas[i];
+}
+
+const Vector& Vector::operator =(const Vector &v)
+{
+	if (this == &v)return *this;
+	if (beg != 0) delete[]beg;
+	size = v.size;
+	beg = new int[size];
+	for (int i = 0; i < size; i++)
+		beg[i] = v.beg[i];
+	return*this;
+}
+
+ostream& operator<<(ostream&out, const Vector&v)
+{
+	if (v.size == 0) out << "Empty\n";
+	else
+	{
+		for (int i = 0; i < v.size; i++)
+			out << v.beg[i] << " ";
+		out << endl;
+	}
+	return out;
+}
+
+istream& operator >>(istream&in, Vector&v)
+{
+	for (int i = 0; i < v.size; i++)
+	{
+		cout << ">";
+		in >> v.beg[i];
+	}
+	return in;
+}
+
+int Vector::operator [](int i)
+{
+	if (i < 0)
+		throw error("ERROR!!! Index can't be negative");	//если индекс отрицательный, то генерируется исключение
+
+	//если индекс больше размер вектора, то генерируется исключение
+	if (i >= size)
+		throw error("ERROR!!! Index can't be more than vector size");
+
+	return beg[i];
+}
+
+int Vector::operator ()()
+{
+	return size;
+}
+
+Vector Vector::operator +(int a)
+{
+	//если при добавлении константы в векторе нет элементов, то генерируется исключение
+	if (size == 0)
+		throw error("ERROR!!! Vector is empty");
+
+	int* mas = new int[size];
+	for (int i = 0; i < size; i++)
+		mas[i] = beg[i] + a;
+
+	Vector temp(size, mas);
+	delete[] mas;
+	return temp;
+}
+
+Vector Vector::operator -(int n)
+{
+	//если в векторе меньше, чем n элементов, то удалить их нельзи и генерируется исключение
+	if (size < n)
+		throw error("ERROR!!! The number is more then vector size");
+
+	if (size == n) //если в векторе n элементов
+	{
+		size = 0;
+		delete[] beg;
+		beg = 0;
+		return *this;
+	};
+
+	Vector temp(size, beg);
+	delete[] beg;
+	size -= n;
+	beg = new int[size];
+	for (int i = 0; i < size; i++)
+		beg[i] = temp.beg[i];
+	return *this;
+}
